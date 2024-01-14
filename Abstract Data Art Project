@@ -1,0 +1,242 @@
+// BasketballData class to represent basketball-related information
+class BasketballData {
+    private String[] teams;
+    private String[] locations;
+    private String[] arenas;
+    private String[] capacities;
+    private String[] championships;
+
+    // Constructor to initialize BasketballData with data
+    public BasketballData(String[] teams, String[] locations, String[] arenas, int[] capacities, String[] championships) {
+        this.teams = teams;
+        this.locations = locations;
+        this.arenas = arenas;
+        this.capacities = capacities;
+        this.championships = championships;
+    }
+private static double calculateAverageCapacity(int[] capacities) {
+        double sum = 0;
+        for (String capacity : capacities) {
+            // Assuming capacities are represented as strings, convert them to doubles for calculations
+            sum += Double.parseDouble(capacity);
+        }
+        // Calculate the average
+        return sum / capacities.length;
+    }
+    // Method to get stadium information by team name
+    public String getStadiumInfoByTeam(String searchTeam) {
+        // Implement logic to search for team and return stadium information
+        // For simplicity, assuming teams and stadiums have a one-to-one relationship
+        int teamIndex = -1;
+        for (int i = 0; i < teams.length; i++) {
+            if (searchTeam.equals(teams[i])) {
+                teamIndex = i;
+                break;
+            }
+        }
+
+        // If team is found, return stadium information; otherwise, provide a message
+        if (teamIndex != -1) {
+            return "Team: " + teams[teamIndex] + "\nLocation: " + locations[teamIndex] +
+                    "\nArena: " + arenas[teamIndex] + "\nCapacity: " + capacities[teamIndex] +
+                    "\nChampionships: " + championships[teamIndex];
+        } else {
+            return "Team information not found for: " + searchTeam;
+        }
+    }
+// toString method to provide general information about basketball data
+    @Override
+    public String toString() {
+        return "Basketball Data Information:\n" +
+                "Number of Teams: " + teams.length + "\n" +
+                "Number of Locations: " + locations.length + "\n" +
+                "Number of Arenas: " + arenas.length + "\n" +
+                "Number of Capacities: " + capacities.length + "\n" +
+                "Number of Championships: " + championships.length;
+    }
+}
+
+// FileRead class to read data from files
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
+class FileRead {
+    private String[] data;
+
+    // Method to read data from a file and return an array
+    public String[] getStringData(int maxSize, String fileName) throws IOException {
+        BufferedReader reader = new BufferedReader(new FileReader(fileName));
+        data = new String[maxSize];
+        for (int i = 0; i < maxSize; i++) {
+            data[i] = reader.readLine();
+        }
+        reader.close();
+
+        return data;
+    }
+}
+
+import java.io.IOException;
+import java.util.Scanner;
+
+public class AdvertisingSpecialistConsole {
+    public static void main(String[] args) throws IOException {
+        // Instantiate Scanner for user input
+        try (Scanner scanner = new Scanner(System.in)) {
+            // Instantiate FileRead to read data from files
+            FileRead fileRead = new FileRead();
+
+            // Read data from files
+            String[] teamsArray = fileRead.getStringData(30, "teams.txt");
+            String[] locationsArray = fileRead.getStringData(30, "locations.txt");
+            String[] arenasArray = fileRead.getStringData(30, "arenas.txt");
+            String[] capacitiesArray = fileRead.getStringData(30, "capacities.txt");
+            String[] championshipsArray = fileRead.getStringData(30, "championships.txt");
+
+            // Instantiate BasketballData class with the read data
+            BasketballData basketballData = new BasketballData(teamsArray, locationsArray, arenasArray, capacitiesArray, championshipsArray);
+
+            // Print general information about basketball data
+            System.out.println(basketballData);
+
+            // Calculate and print the average stadium capacity
+            double averageCapacity = calculateAverageCapacity(capacitiesArray);
+            System.out.println("Average Stadium Capacity: " + averageCapacity);
+
+            // Prompt user for input
+            String userInput;
+            
+                System.out.println("\nEnter a valid team name to get information about their stadium:");
+                userInput = scanner.nextLine();
+            
+           
+         
+        }
+    }
+
+}
+
+Boston Celtics
+Brooklyn Nets
+New York Knicks
+Philadelphia 76ers
+Toronto Raptors
+Chicago Bulls
+Cleveland Cavaliers
+Detroit Pistons
+Indiana Pacers
+Milwaukee Bucks
+Atlanta Hawks
+Charlotte Hornets
+Miami Heat
+Orlando Magic
+Washington Wizards
+Denver Nuggets
+Minnesota Timberwolves
+Oklahoma City Thunder
+Portland Trail Blazers
+Utah Jazz
+Golden State Warriors
+Los Angeles Clippers
+Los Angeles Lakers
+Phoenix Suns
+Sacramento Kings
+Dallas Mavericks
+Houston Rockets
+Memphis Grizzlies
+New Orleans Pelicans
+San Antonio Spurs
+
+Boston
+New York City
+New York City
+Philadelphia
+Toronto
+Chicago
+Cleveland
+Detroit
+Indianapolis
+Milwaukee
+Atlanta
+Charlotte
+Miami
+Orlando
+Washington
+Denver
+Minneapolis
+Oklahoma City
+Portland
+Salt Lake City
+San Francisco
+Los Angeles
+Los Angeles
+Phoenix
+Sacramento
+Dallas
+Houston
+Memphis
+New Orleans
+San Antonio
+
+TD Garden
+Barclays Center
+Madison Square Garden
+Wells Fargo Center
+Scotiabank Arena
+United Center
+Rocket Mortgage FieldHouse
+Little Caesars Arena
+Bankers Life Fieldhouse
+Fiserv Forum
+State Farm Arena
+Spectrum Center
+American Airlines Arena
+Amway Center
+Capital One Arena
+Pepsi Center
+Target Center
+Chesapeake Energy Arena
+Moda Center
+Vivint Smart Home Arena
+Chase Center
+Staples Center
+Staples Center
+Talking Stick Resort Arena
+Golden 1 Center
+American Airlines Center
+Toyota Center
+FedExForum
+Smoothie King Center
+AT&T Center
+
+18624
+17732
+19812
+21600
+19800
+20917
+20562
+20491
+17923
+18717
+15711
+19077
+19600
+18846
+20356
+19520
+19356
+18203
+19441
+19911
+18064
+19060
+18997
+18055
+17500
+19200
+18055
+18119
+16867
+18418
